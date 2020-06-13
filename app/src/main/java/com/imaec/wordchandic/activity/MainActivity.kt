@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.wordchandic.R
 import com.imaec.wordchandic.adapter.MainAdapter
 import com.imaec.wordchandic.retrofit.WCDService
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import android.app.Activity
 import android.view.View
@@ -24,6 +22,8 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.imaec.wordchandic.BuildConfig
 import com.imaec.wordchandic.EndlessRecyclerOnScrollListener
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -173,8 +173,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "데이터를 가져오는데 실패했습니다.\nERROR : ${it.message}", Toast.LENGTH_SHORT).show()
             }, {
                 adapter.notifyDataSetChanged()
-            }, {
-                compositeDisposable.add(it)
+//                compositeDisposable.add(it)
             })
     }
 

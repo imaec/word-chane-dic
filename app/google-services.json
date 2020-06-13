@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "517850374218",
+    "firebase_url": "https://wordchanedic.firebaseio.com",
+    "project_id": "wordchanedic",
+    "storage_bucket": "wordchanedic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517850374218:android:87cb1f3dda1aa8678f86b3",
+        "android_client_info": {
+          "package_name": "com.imaec.wordchandic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517850374218-pamhc4cosss3mcvhlkt0h8458gojjlea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNqNosm_WMkJRfbLGDXBTbgBGaeZavyiE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517850374218-pamhc4cosss3mcvhlkt0h8458gojjlea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

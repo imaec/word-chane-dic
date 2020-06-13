@@ -1,7 +1,8 @@
 package com.imaec.wordchandic.retrofit
 
 import com.imaec.wordchandic.model.Channel
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import retrofit2.http.GET
@@ -26,5 +27,5 @@ interface WCDService {
                    @Query("start") start: Int,
                    @Query("num") num: Int,
                    @Query("method") method: String = "start",
-                   @Query("pos") pos: String = "1,11,15,17,18"): Observable<Channel>
+                   @Query("pos") pos: String = "1,11,15,17,18"): Flowable<Channel>
 }
