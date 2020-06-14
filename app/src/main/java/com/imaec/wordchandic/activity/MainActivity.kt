@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.imaec.wordchandic.R
 import com.imaec.wordchandic.adapter.MainAdapter
 import com.imaec.wordchandic.retrofit.WCDService
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import android.app.Activity
 import android.view.View
@@ -23,6 +22,7 @@ import com.google.android.gms.ads.MobileAds
 import com.imaec.wordchandic.BuildConfig
 import com.imaec.wordchandic.EndlessRecyclerOnScrollListener
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
@@ -137,11 +137,8 @@ class MainActivity : AppCompatActivity() {
     private fun search(q: String, page: Int) {
         hideKeyboard()
         val service = WCDService.instance
-        service.callSearch("2B5D64859844E78AAE2BA1D19329540F",
-            q,
-            page,
-            100)
-            .subscribeOn(Schedulers.io())
+        service.callSearch(getString(R.string.open_dic_key), q, page)
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .flatMapIterable {
                 if (it.listItem == null) isLoadMore = false

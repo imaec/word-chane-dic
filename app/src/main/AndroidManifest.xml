@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:allowBackup="true"
+        android:name=".base.WCDApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_wcd"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_wcd"
