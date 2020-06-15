@@ -137,14 +137,13 @@ class MainActivity : AppCompatActivity() {
     private fun search(q: String, page: Int) {
         hideKeyboard()
         val service = WCDService.instance
-        service.callSearch(getString(R.string.open_dic_key), q, page)
+        val disposable = service.callSearch(getString(R.string.open_dic_key), q, page)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .flatMapIterable {
                 if (it.listItem == null) isLoadMore = false
                 adapter.setIsLoadMore(isLoadMore)
 
-                editSearch.setText("")
                 progressMain.visibility = View.GONE
                 if (page == 1) adapter.clearItem()
 
@@ -170,8 +169,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "데이터를 가져오는데 실패했습니다.\nERROR : ${it.message}", Toast.LENGTH_SHORT).show()
             }, {
                 adapter.notifyDataSetChanged()
-//                compositeDisposable.add(it)
+                editSearch.setText("")
             })
+
+        compositeDisposable.add(disposable)
     }
 
     private fun hideKeyboard() {
