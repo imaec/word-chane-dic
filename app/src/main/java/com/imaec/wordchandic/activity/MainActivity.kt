@@ -28,6 +28,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = this::class.java.simpleName
+
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var interstitialAd2: InterstitialAd
     private lateinit var adapter: MainAdapter
@@ -97,6 +99,11 @@ class MainActivity : AppCompatActivity() {
             adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     interstitialAd.show()
+                }
+
+                override fun onAdClosed() {
+                    super.onAdClosed()
+                    linear_progress.visibility = View.GONE
                 }
             }
         }
