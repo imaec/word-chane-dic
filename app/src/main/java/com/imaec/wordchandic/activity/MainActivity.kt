@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     private var q: String = ""
     private var i = 1
     private var isLoadMore = true
+    private var preCount = 0
+    private var currentPage = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
             progressMain.visibility = View.VISIBLE
             search(q, 1)
-            showAd()
+            // showAd()
         }
 
         editSearch.setOnEditorActionListener { v, actionId, event ->
@@ -82,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerMain.addOnScrollListener(object : EndlessRecyclerOnScrollListener(layoutManager) {
             override fun onLoadMore(current_page: Int) {
-                if (isLoadMore) search(q, current_page + 1)
+                if (isLoadMore) search(q, currentPage + 1)
             }
         })
     }
@@ -143,6 +145,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     private fun search(q: String, page: Int) {
         hideKeyboard()
+        currentPage = page
         val service = WCDService.instance
         val disposable = service.callSearch(getString(R.string.open_dic_key), q, page)
             .subscribeOn(Schedulers.computation())
@@ -168,6 +171,7 @@ class MainActivity : AppCompatActivity() {
             .filter { it.word.length > 1 && it.word[0].toString() == q }
             .filter { it.listSense[0].pos != "동사" }
             .subscribe({
+                Log.d(TAG, "    ## item : $it")
                 adapter.addItem(it)
             }, {
                 progressMain.visibility = View.GONE
@@ -175,8 +179,15 @@ class MainActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
                 Toast.makeText(this, "데이터를 가져오는데 실패했습니다.\nERROR : ${it.message}", Toast.LENGTH_SHORT).show()
             }, {
-                adapter.notifyDataSetChanged()
-                editSearch.setText("")
+                if (preCount == adapter.itemCount) {
+                    search(q, page + 1)
+                    Toast.makeText(this, "데이터를 계속 가져오는 중입니다.\n잠시만 기다려주세요.", Toast.LENGTH_SHORT).show()
+                    if (preCount == 0) progressMain.visibility = View.VISIBLE
+                } else {
+                    adapter.notifyDataSetChanged()
+                    preCount = adapter.itemCount
+                    editSearch.setText("")
+                }
             })
 
         compositeDisposable.add(disposable)

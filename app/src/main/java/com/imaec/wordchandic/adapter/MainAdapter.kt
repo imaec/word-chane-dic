@@ -2,6 +2,7 @@ package com.imaec.wordchandic.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.item_main.view.*
 import kotlinx.android.synthetic.main.item_progress.view.*
 
 class MainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val TAG = this::class.java.simpleName
 
     private val listItem = ArrayList<Item>()
     private lateinit var context: Context
@@ -67,12 +70,6 @@ class MainAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun onBind(item: Item) {
             textWord.text = item.word
-
-//            var pos = ""
-//            for (sense in item.listSense) {
-//                pos += if (pos == "") sense.pos
-//                else "/${sense.pos}"
-//            }
             textPos.text = item.listSense[0].pos
 
             itemView.setOnClickListener {

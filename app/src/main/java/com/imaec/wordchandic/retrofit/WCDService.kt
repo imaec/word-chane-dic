@@ -40,5 +40,8 @@ interface WCDService {
                    @Query("start") start: Int,
                    @Query("num") num: Int = 10,
                    @Query("method") method: String = "start",
+                   @Query("letter_s") letter_s: Int = 2,
+                   @Query("letter_e") letter_e: Int = 80,
+                   @Query("type1") type1: String = "word",
                    @Query("pos") pos: Array<Int> = arrayOf(1,11,15,17,18)): Flowable<Channel>
 }
