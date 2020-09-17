@@ -23,6 +23,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"/>
+
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

@@ -13,8 +13,10 @@ import com.imaec.wordchandic.adapter.MainAdapter
 import com.imaec.wordchandic.retrofit.WCDService
 import kotlinx.android.synthetic.main.activity_main.*
 import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -27,6 +29,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        val adLoaded = MutableLiveData<Boolean>(false)
+    }
 
     private val TAG = this::class.java.simpleName
 
@@ -45,6 +51,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        startActivityForResult(Intent(this, SplashActivity::class.java), 0)
 
         adInit()
 
@@ -94,13 +102,22 @@ class MainActivity : AppCompatActivity() {
         compositeDisposable.clear()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            interstitialAd.show()
+            adLoaded.value = false
+        }
+    }
+
     private fun adInit() {
         MobileAds.initialize(this) {}
         interstitialAd = InterstitialAd(this).apply {
             adUnitId =  if (BuildConfig.DEBUG) "ca-app-pub-3940256099942544/1033173712" else "ca-app-pub-7147836151485354/4587331679"
             adListener = object : AdListener() {
                 override fun onAdLoaded() {
-                    interstitialAd.show()
+                    adLoaded.value = true
                 }
 
                 override fun onAdClosed() {
