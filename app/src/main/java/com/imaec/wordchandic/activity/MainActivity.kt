@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 progressMain.visibility = View.VISIBLE
                 search(q, 1)
-                showAd()
+                // showAd()
                 true
             }
             false
