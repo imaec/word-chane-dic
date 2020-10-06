@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startActivityForResult(Intent(this, SplashActivity::class.java), 0)
+        // startActivityForResult(Intent(this, SplashActivity::class.java), 0)
 
-        adInit()
+        // adInit()
 
         init()
 
