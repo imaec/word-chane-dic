@@ -31,7 +31,7 @@ interface WCDService {
             .client(client)
             .build()
 
-        val instance = retrofit.create(WCDService::class.java)
+        val instance: WCDService = retrofit.create(WCDService::class.java)
     }
 
     @GET("api/search")

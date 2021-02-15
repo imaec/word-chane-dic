@@ -6,14 +6,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.imaec.wordchandic"
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         multiDexEnabled true
-        versionCode 106
-        versionName "1.0.6"
+        versionCode 107
+        versionName "1.0.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
